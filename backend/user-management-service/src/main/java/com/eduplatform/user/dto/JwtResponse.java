@@ -1,4 +1,7 @@
-// JWT Response DTO
+package com.eduplatform.user.dto;
+
+import lombok.Data;
+
 @Data
 public class JwtResponse {
     private String token;

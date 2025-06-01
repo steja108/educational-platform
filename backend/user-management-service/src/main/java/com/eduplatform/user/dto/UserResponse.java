@@ -1,3 +1,10 @@
+package com.eduplatform.user.dto;
+
+import com.eduplatform.user.entity.User;
+import lombok.Data;
+
+import java.util.Set;
+
 @Data
 public class UserResponse {
     private Long id;

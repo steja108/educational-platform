@@ -1,4 +1,6 @@
+// frontend/src/services/api.ts - Fixed with proper imports
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { LoginRequest, RegisterRequest, AuthResponse, User, Course } from '../types';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 
