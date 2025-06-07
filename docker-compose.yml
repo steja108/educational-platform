@@ -93,7 +93,7 @@ services:
     ports:
       - "8092:8082"  # Changed from 8082 to 8092
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/eduplatform
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/eduplatform
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_PROFILES_ACTIVE: docker
