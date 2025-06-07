@@ -1,12 +1,12 @@
 server:
-  port: 8081
+  port: 8091
 
 spring:
   application:
     name: user-management-service
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/eduplatform
+    url: jdbc:postgresql://localhost:5433/eduplatform
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -56,17 +56,21 @@ management:
 
 ---
 spring:
-  profiles: docker
+  config:
+    activate:
+      on-profile: docker
 
   datasource:
-    url: jdbc:postgresql://postgres:5432/eduplatform
+    url: jdbc:postgresql://postgres:5433/eduplatform
 
   kafka:
     bootstrap-servers: kafka:9092
 
 ---
 spring:
-  profiles: test
+  config:
+    activate:
+      on-profile: test
 
   datasource:
     url: jdbc:h2:mem:testdb

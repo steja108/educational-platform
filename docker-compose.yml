@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # Database Services
   postgres:
@@ -10,7 +8,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"  # Changed from 5432 to avoid conflicts
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -20,7 +18,7 @@ services:
     image: redis:7-alpine
     container_name: edu-platform-redis
     ports:
-      - "6379:6379"
+      - "6380:6379"  # Changed from 6379 to avoid conflicts
     networks:
       - eduplatform-network
 
@@ -40,11 +38,11 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - "9092:9092"
+      - "9093:9092"  # Changed from 9092 to avoid conflicts
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9093
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
@@ -58,7 +56,7 @@ services:
       dockerfile: Dockerfile
     container_name: edu-platform-api-gateway
     ports:
-      - "8080:8080"
+      - "8090:8080"  # Changed from 8080 to 8090
     environment:
       JWT_SECRET: mySecretKey1234567890123456789012345678901234567890
       SPRING_PROFILES_ACTIVE: docker
@@ -73,7 +71,7 @@ services:
       dockerfile: Dockerfile
     container_name: edu-platform-user-service
     ports:
-      - "8081:8081"
+      - "8091:8081"  # Changed from 8081 to 8091
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/eduplatform
       SPRING_DATASOURCE_USERNAME: postgres
@@ -93,9 +91,9 @@ services:
       dockerfile: Dockerfile
     container_name: edu-platform-course-service
     ports:
-      - "8082:8082"
+      - "8092:8082"  # Changed from 8082 to 8092
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/eduplatform
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5433/eduplatform
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_PROFILES_ACTIVE: docker
@@ -113,9 +111,9 @@ services:
       dockerfile: Dockerfile.dev
     container_name: edu-platform-frontend
     ports:
-      - "3000:3000"
+      - "3001:3000"  # Changed from 3000 to 3001
     environment:
-      REACT_APP_API_URL: http://localhost:8080
+      REACT_APP_API_URL: http://localhost:8090  # Updated to match new API Gateway port
     volumes:
       - ./frontend:/app
       - /app/node_modules

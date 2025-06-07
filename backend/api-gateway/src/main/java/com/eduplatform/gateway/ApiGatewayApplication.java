@@ -9,6 +9,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
+
 @SpringBootApplication
 public class ApiGatewayApplication {
 
@@ -22,12 +24,12 @@ public class ApiGatewayApplication {
                 // User Management Service Routes
                 .route("user-service", r -> r.path("/api/users/**", "/api/auth/**")
                         .filters(f -> f.stripPrefix(1))
-                        .uri("http://localhost:8081"))
+                        .uri("http://user-management-service:8081"))
 
                 // Course Management Service Routes
                 .route("course-service", r -> r.path("/api/courses/**")
                         .filters(f -> f.stripPrefix(1))
-                        .uri("http://localhost:8082"))
+                        .uri("http://course-management-service:8082"))
 
                 // Content Delivery Service Routes
                 .route("content-service", r -> r.path("/api/content/**", "/api/videos/**")
@@ -61,9 +63,10 @@ public class ApiGatewayApplication {
     public CorsWebFilter corsWebFilter() {
         CorsConfiguration corsConfig = new CorsConfiguration();
         corsConfig.setAllowCredentials(true);
-        corsConfig.addAllowedOriginPattern("*");
-        corsConfig.addAllowedHeader("*");
-        corsConfig.addAllowedMethod("*");
+        corsConfig.setAllowedOriginPatterns(Arrays.asList("*"));
+        corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        corsConfig.setAllowedHeaders(Arrays.asList("*"));
+        corsConfig.setExposedHeaders(Arrays.asList("*"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);

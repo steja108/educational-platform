@@ -1,6 +1,6 @@
 # application.yml - API Gateway Configuration
 server:
-  port: 8080
+  port: 8090
 
 spring:
   application:
@@ -50,7 +50,9 @@ management:
 # Environment specific configurations
 ---
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
 
 logging:
   level:
@@ -59,7 +61,9 @@ logging:
 
 ---
 spring:
-  profiles: prod
+  config:
+    activate:
+      on-profile: prod
 
 logging:
   level:

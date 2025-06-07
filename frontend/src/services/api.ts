@@ -2,7 +2,7 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { LoginRequest, RegisterRequest, AuthResponse, User, Course } from '../types';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8090';
 
 class ApiService {
     private api: AxiosInstance;
